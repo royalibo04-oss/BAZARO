@@ -4,195 +4,536 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BAZARO</title>
+<title>BAZARO — Al, sat, tap</title>
+
+<meta name="description"
+content="BAZARO — Azərbaycanda alqı-satqı elanları. Avtomobil, telefon, ev, elektronika və daha çox.">
 
 <style>
 
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f4f4;
-  color:#222;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fa;
+  color:#111827;
 }
 
 header{
   background:#111827;
   color:white;
-  padding:20px;
-  text-align:center;
+  padding:18px 20px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 3px 15px rgba(0,0,0,.15);
 }
 
-h1{
-  margin:0;
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
-.container{
-  max-width:900px;
-  margin:25px auto;
+.logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:#f59e0b;
+}
+
+.admin-btn{
+  background:#f59e0b;
+  color:#111827;
+  border:0;
+  padding:11px 17px;
+  border-radius:9px;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111827,#1f2937);
+  color:white;
+  padding:55px 20px 65px;
+}
+
+.hero-inner{
+  max-width:1100px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:42px;
+  margin:0 0 12px;
+}
+
+.hero p{
+  color:#d1d5db;
+  font-size:18px;
+  margin-bottom:28px;
+}
+
+.search-box{
+  background:white;
+  padding:10px;
+  border-radius:14px;
+  display:flex;
+  gap:10px;
+  max-width:850px;
+  box-shadow:0 10px 35px rgba(0,0,0,.2);
+}
+
+.search-box input{
+  flex:1;
+  border:0;
+  outline:0;
   padding:15px;
+  font-size:16px;
 }
 
-button{
+.search-box button{
   background:#f59e0b;
   border:0;
-  padding:13px 20px;
-  border-radius:8px;
+  border-radius:10px;
+  padding:0 25px;
   font-weight:bold;
   cursor:pointer;
 }
 
+.container{
+  max-width:1100px;
+  margin:35px auto;
+  padding:0 20px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.section-title h2{
+  margin:0;
+}
+
 .categories{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:20px;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
 
 .category{
   background:white;
-  padding:25px;
+  border-radius:14px;
+  padding:22px 10px;
   text-align:center;
-  border-radius:10px;
+  cursor:pointer;
+  transition:.2s;
+  border:1px solid #e5e7eb;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.category-icon{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.category-name{
   font-weight:bold;
+}
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.filters input,
+.filters select{
+  padding:13px;
+  border:1px solid #d1d5db;
+  border-radius:9px;
+  background:white;
+  font-size:15px;
+}
+
+.filters button{
+  padding:13px 20px;
+  border:0;
+  border-radius:9px;
+  background:#111827;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .ads{
-  margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.ad{
   background:white;
-  padding:20px;
-  border-radius:10px;
+  border-radius:15px;
+  overflow:hidden;
+  border:1px solid #e5e7eb;
+  transition:.2s;
 }
 
-.elan{
-  background:#f3f4f6;
-  padding:15px;
-  margin-top:15px;
-  border-radius:10px;
+.ad:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
 
-.elan h3{
+.ad-image{
+  height:190px;
+  background:#e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:45px;
+  color:#9ca3af;
+}
+
+.ad-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.ad-body{
+  padding:17px;
+}
+
+.ad-title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.price{
+  font-size:21px;
+  font-weight:900;
+  color:#d97706;
+  margin-bottom:8px;
+}
+
+.location{
+  color:#6b7280;
+  font-size:14px;
+}
+
+.empty{
+  background:white;
+  border-radius:14px;
+  padding:45px 20px;
+  text-align:center;
+  color:#6b7280;
+  grid-column:1/-1;
+}
+
+.empty-icon{
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+.cta{
+  margin-top:45px;
+  background:#111827;
+  color:white;
+  border-radius:18px;
+  padding:35px;
+  text-align:center;
+}
+
+.cta h2{
   margin-top:0;
 }
 
-.elan img{
-  width:100%;
-  max-height:300px;
-  object-fit:cover;
-  border-radius:8px;
+.cta a{
+  display:inline-block;
   margin-top:10px;
-}
-
-.qiymet{
-  color:#d97706;
-  font-size:20px;
+  background:#f59e0b;
+  color:#111827;
+  padding:13px 22px;
+  border-radius:9px;
+  text-decoration:none;
   font-weight:bold;
 }
 
-.seher{
-  color:#555;
+footer{
+  margin-top:50px;
+  background:#111827;
+  color:#9ca3af;
+  padding:30px 20px;
+  text-align:center;
 }
 
-.bos{
-  text-align:center;
-  color:#777;
+footer strong{
+  color:white;
+}
+
+@media(max-width:800px){
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ads{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+}
+
+@media(max-width:550px){
+
+  .header-inner{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .admin-btn{
+    text-align:center;
+  }
+
+  .search-box{
+    flex-direction:column;
+  }
+
+  .search-box button{
+    padding:14px;
+  }
+
+  .ads{
+    grid-template-columns:1fr;
+  }
+
+  .filters{
+    flex-direction:column;
+  }
+
+  .filters input,
+  .filters select,
+  .filters button{
+    width:100%;
+  }
+
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
 
-<h1>BAZARO</h1>
+<div class="header-inner">
 
-<p>Al, sat və elanını yerləşdir</p>
+<div class="logo">
+BAZARO<span>.</span>
+</div>
+
+<a class="admin-btn" href="admin.html">
+➕ Elan yerləşdir
+</a>
+
+</div>
 
 </header>
 
 
-<div class="container">
+<section class="hero">
 
-<h2>BAZARO-ya xoş gəlmisiniz!</h2>
+<div class="hero-inner">
 
+<h1>İstədiyini tap.</h1>
 
-<button onclick="elanYerlesdir()">
-Elan yerləşdir
+<p>
+Al, sat və ən yaxşı elanları bir yerdə kəşf et.
+</p>
+
+<div class="search-box">
+
+<input
+type="text"
+id="axtaris"
+placeholder="Nə axtarırsınız? Məsələn: iPhone, maşın, ev..."
+oninput="elanlariGoster()">
+
+<button onclick="elanlariGoster()">
+Axtar
 </button>
 
+</div>
 
+</div>
+
+</section>
+
+
+<div class="container">
+
+
+<div class="section-title">
 <h2>Kateqoriyalar</h2>
+</div>
 
 
 <div class="categories">
 
-<div class="category">
-🚗<br>
-Avtomobil
+<div class="category" onclick="kateqoriyaSec('Avtomobil')">
+<div class="category-icon">🚗</div>
+<div class="category-name">Avtomobil</div>
 </div>
 
-<div class="category">
-🏠<br>
-Ev
+<div class="category" onclick="kateqoriyaSec('Ev')">
+<div class="category-icon">🏠</div>
+<div class="category-name">Ev</div>
 </div>
 
-<div class="category">
-📱<br>
-Telefon
+<div class="category" onclick="kateqoriyaSec('Telefon')">
+<div class="category-icon">📱</div>
+<div class="category-name">Telefon</div>
 </div>
 
-<div class="category">
-🧱<br>
-Tikinti
+<div class="category" onclick="kateqoriyaSec('Tikinti')">
+<div class="category-icon">🧱</div>
+<div class="category-name">Tikinti</div>
 </div>
 
-<div class="category">
-👕<br>
-Geyim
+<div class="category" onclick="kateqoriyaSec('Geyim')">
+<div class="category-icon">👕</div>
+<div class="category-name">Geyim</div>
 </div>
 
-<div class="category">
-🐑<br>
-Heyvan
+<div class="category" onclick="kateqoriyaSec('Heyvan')">
+<div class="category-icon">🐑</div>
+<div class="category-name">Heyvan</div>
 </div>
 
-<div class="category">
-💻<br>
-Elektronika
+<div class="category" onclick="kateqoriyaSec('Elektronika')">
+<div class="category-icon">💻</div>
+<div class="category-name">Elektronika</div>
 </div>
 
-<div class="category">
-📦<br>
-Digər
+<div class="category" onclick="kateqoriyaSec('Digər')">
+<div class="category-icon">📦</div>
+<div class="category-name">Digər</div>
 </div>
 
 </div>
 
 
-<div class="ads">
+<div style="margin-top:45px">
 
+<div class="section-title">
 <h2>Son elanlar</h2>
+</div>
 
-<div id="elanlar">
 
-<p class="bos">
-Hələ elan yoxdur.
+<div class="filters">
+
+<input
+type="number"
+id="minQiymet"
+placeholder="Min qiymət">
+
+<input
+type="number"
+id="maxQiymet"
+placeholder="Max qiymət">
+
+<select id="seher" onchange="elanlariGoster()">
+
+<option value="">Bütün şəhərlər</option>
+<option>Bakı</option>
+<option>Gəncə</option>
+<option>Sumqayıt</option>
+<option>Mingəçevir</option>
+<option>Naxçıvan</option>
+<option>Şəki</option>
+<option>Lənkəran</option>
+
+</select>
+
+<button onclick="elanlariGoster()">
+Filtrlə
+</button>
+
+</div>
+
+
+<div class="ads" id="elanlar"></div>
+
+</div>
+
+
+<div class="cta">
+
+<h2>Elanını indi yerləşdir</h2>
+
+<p>
+Satmaq istədiyin məhsulu BAZARO-da minlərlə istifadəçiyə göstər.
 </p>
 
-</div>
+<a href="admin.html">
+Elan yerləşdir →
+</a>
 
 </div>
 
 
 </div>
+
+
+<footer>
+
+<strong>BAZARO</strong>
+
+<br><br>
+
+Al • Sat • Tap
+
+<br><br>
+
+© 2026 BAZARO
+
+</footer>
 
 
 <script>
 
-function elanYerlesdir(){
+function kateqoriyaSec(kateqoriya){
 
-window.location.href="admin.html";
+document.getElementById("axtaris").value=kateqoriya;
+
+elanlariGoster();
+
+window.scrollTo({
+top:700,
+behavior:"smooth"
+});
 
 }
 
@@ -202,14 +543,82 @@ function elanlariGoster(){
 var elanlar =
 JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
 
+var axtaris =
+document.getElementById("axtaris").value
+.toLowerCase()
+.trim();
+
+var seher =
+document.getElementById("seher").value;
+
+var min =
+parseFloat(document.getElementById("minQiymet").value)
+|| 0;
+
+var maxInput =
+document.getElementById("maxQiymet").value;
+
+var max =
+maxInput === ""
+? Infinity
+: parseFloat(maxInput);
+
+
+var netice =
+elanlar.filter(function(elan){
+
+var metn =
+(
+elan.ad +
+" " +
+(elan.seher || "")
+).toLowerCase();
+
+var qiymet =
+parseFloat(elan.qiymet) || 0;
+
+var axtarisUyur =
+axtaris === "" ||
+metn.includes(axtaris);
+
+var seherUyur =
+seher === "" ||
+elan.seher === seher;
+
+var qiymetUyur =
+qiymet >= min &&
+qiymet <= max;
+
+return (
+axtarisUyur &&
+seherUyur &&
+qiymetUyur
+);
+
+});
+
+
 var yer =
 document.getElementById("elanlar");
 
 
-if(elanlar.length === 0){
+if(netice.length === 0){
 
-yer.innerHTML =
-'<p class="bos">Hələ elan yoxdur.</p>';
+yer.innerHTML=`
+
+<div class="empty">
+
+<div class="empty-icon">🔍</div>
+
+<h3>Elan tapılmadı</h3>
+
+<p>
+Axtarışınızı dəyişin və ya ilk elanı siz yerləşdirin.
+</p>
+
+</div>
+
+`;
 
 return;
 
@@ -219,40 +628,67 @@ return;
 yer.innerHTML="";
 
 
-elanlar.slice().reverse().forEach(function(elan){
+netice.slice().reverse().forEach(function(elan){
 
 var div =
 document.createElement("div");
 
-div.className="elan";
+div.className="ad";
 
 
-var html="";
-
-html += "<h3>" +
-elan.ad +
-"</h3>";
-
-html += "<p class='qiymet'>" +
-elan.qiymet +
-" manat</p>";
-
-html += "<p class='seher'>📍 " +
-elan.seher +
-"</p>";
-
+var sekil="";
 
 if(elan.sekil && elan.sekil !== ""){
 
-html +=
-"<img src='" +
-elan.sekil +
-"' alt='Elan şəkli'>";
+sekil=`
+
+<div class="ad-image">
+
+<img
+src="${elan.sekil}"
+alt="${elan.ad}"
+onerror="this.parentElement.innerHTML='📦'"
+>
+
+</div>
+
+`;
+
+}else{
+
+sekil=`
+
+<div class="ad-image">
+📦
+</div>
+
+`;
 
 }
 
 
-div.innerHTML=html;
+div.innerHTML=`
+
+${sekil}
+
+<div class="ad-body">
+
+<div class="ad-title">
+${elan.ad}
+</div>
+
+<div class="price">
+${elan.qiymet} AZN
+</div>
+
+<div class="location">
+📍 ${elan.seher}
+</div>
+
+</div>
+
+`;
+
 
 yer.appendChild(div);
 
@@ -264,7 +700,6 @@ yer.appendChild(div);
 elanlariGoster();
 
 </script>
-
 
 </body>
 </html>
