@@ -9,7 +9,7 @@
 <style>
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   background:#f2f2f2;
 }
 
@@ -26,36 +26,77 @@ header{
   background:white;
   padding:25px;
   border-radius:12px;
+  box-sizing:border-box;
 }
 
 input{
   width:100%;
   padding:14px;
   box-sizing:border-box;
-  margin:10px 0;
+  margin:8px 0;
   border:1px solid #ccc;
   border-radius:8px;
+  font-size:16px;
 }
 
 button{
   width:100%;
   padding:14px;
+  margin-top:10px;
   border:0;
   border-radius:8px;
   background:#f59e0b;
+  color:#111;
   font-weight:bold;
+  font-size:16px;
   cursor:pointer;
+}
+
+button:hover{
+  opacity:0.9;
 }
 
 #panel{
   display:none;
 }
 
+#elanForm{
+  display:none;
+  margin-top:20px;
+}
+
 .elan{
   background:#f3f4f6;
   padding:15px;
-  margin-top:10px;
+  margin-top:15px;
   border-radius:8px;
+}
+
+.elan img{
+  width:100%;
+  max-height:250px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-top:10px;
+}
+
+.sil{
+  background:#dc2626;
+  color:white;
+}
+
+.basari{
+  color:green;
+  font-weight:bold;
+}
+
+.xeta{
+  color:red;
+  font-weight:bold;
+}
+
+#elanlar{
+  margin-top:20px;
 }
 </style>
 </head>
@@ -66,6 +107,9 @@ button{
 <h1>BAZARO</h1>
 <p>Admin Paneli</p>
 </header>
+
+
+<!-- GİRİŞ -->
 
 <div class="box" id="giris">
 
@@ -85,16 +129,66 @@ Daxil ol
 </div>
 
 
+<!-- ADMİN PANELİ -->
+
 <div class="box" id="panel">
 
 <h2>✅ Admin panelinə xoş gəlmisiniz</h2>
 
 <p>Buradan BAZARO saytını idarə edə bilərsiniz.</p>
 
+<button onclick="formuGoster()">
+➕ Elan əlavə et
+</button>
+
+
+<!-- ELAN ƏLAVƏ ET FORMU -->
+
+<div id="elanForm">
+
+<h2>Yeni elan əlavə et</h2>
+
+<input
+type="text"
+id="elanAdi"
+placeholder="Elanın adı">
+
+<input
+type="number"
+id="elanQiymet"
+placeholder="Qiymət (manat)">
+
+<input
+type="text"
+id="elanSeher"
+placeholder="Şəhər">
+
+<input
+type="text"
+id="elanSekil"
+placeholder="Şəklin linki">
+
+<button onclick="elanElaveEt()">
+Elanı yadda saxla
+</button>
+
+<p id="elanMesaj"></p>
+
+</div>
+
+
+<!-- ELANLAR -->
+
 <div class="elan">
+
 <h3>Elanların idarəsi</h3>
+
+<div id="elanlar">
 <p>Hazırda elan yoxdur.</p>
 </div>
+
+</div>
+
 
 <button onclick="cixis()">
 Çıxış
@@ -107,8 +201,7 @@ Daxil ol
 
 function daxilOl(){
 
-var sifre =
-document.getElementById("sifre").value;
+var sifre = document.getElementById("sifre").value;
 
 if(sifre === "12345"){
 
@@ -116,14 +209,181 @@ document.getElementById("giris").style.display="none";
 
 document.getElementById("panel").style.display="block";
 
+document.getElementById("mesaj").innerText="";
+
+elanlariGoster();
+
 }else{
 
 document.getElementById("mesaj").innerText=
 "❌ Şifrə yanlışdır.";
 
+document.getElementById("mesaj").className="xeta";
+
 }
 
 }
+
+
+function formuGoster(){
+
+document.getElementById("elanForm").style.display="block";
+
+}
+
+
+function elanElaveEt(){
+
+var ad =
+document.getElementById("elanAdi").value.trim();
+
+var qiymet =
+document.getElementById("elanQiymet").value.trim();
+
+var seher =
+document.getElementById("elanSeher").value.trim();
+
+var sekil =
+document.getElementById("elanSekil").value.trim();
+
+
+if(ad === "" || qiymet === "" || seher === ""){
+
+document.getElementById("elanMesaj").innerText=
+"❌ Elanın adı, qiyməti və şəhəri yazılmalıdır.";
+
+document.getElementById("elanMesaj").className="xeta";
+
+return;
+
+}
+
+
+var elanlar =
+JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
+
+
+var yeniElan = {
+
+ad: ad,
+
+qiymet: qiymet,
+
+seher: seher,
+
+sekil: sekil
+
+};
+
+
+elanlar.push(yeniElan);
+
+
+localStorage.setItem(
+"bazaroElanlar",
+JSON.stringify(elanlar)
+);
+
+
+document.getElementById("elanMesaj").innerText=
+"✅ Elan uğurla əlavə edildi.";
+
+document.getElementById("elanMesaj").className="basari";
+
+
+document.getElementById("elanAdi").value="";
+document.getElementById("elanQiymet").value="";
+document.getElementById("elanSeher").value="";
+document.getElementById("elanSekil").value="";
+
+
+elanlariGoster();
+
+}
+
+
+function elanlariGoster(){
+
+var elanlar =
+JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
+
+var yer =
+document.getElementById("elanlar");
+
+
+if(elanlar.length === 0){
+
+yer.innerHTML="<p>Hazırda elan yoxdur.</p>";
+
+return;
+
+}
+
+
+yer.innerHTML="";
+
+
+elanlar.forEach(function(elan,index){
+
+var div =
+document.createElement("div");
+
+div.className="elan";
+
+
+var html="";
+
+html += "<h3>" + elan.ad + "</h3>";
+
+html += "<p><b>Qiymət:</b> " +
+elan.qiymet + " manat</p>";
+
+html += "<p><b>Şəhər:</b> " +
+elan.seher + "</p>";
+
+
+if(elan.sekil !== ""){
+
+html += "<img src='" +
+elan.sekil +
+"' alt='Elan şəkli'>";
+
+}
+
+
+html += "<button class='sil' onclick='elanSil(" +
+index +
+")'>🗑 Elanı sil</button>";
+
+
+div.innerHTML=html;
+
+yer.appendChild(div);
+
+});
+
+}
+
+
+function elanSil(index){
+
+var elanlar =
+JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
+
+
+elanlar.splice(index,1);
+
+
+localStorage.setItem(
+"bazaroElanlar",
+JSON.stringify(elanlar)
+);
+
+
+elanlariGoster();
+
+}
+
 
 function cixis(){
 
@@ -132,6 +392,8 @@ document.getElementById("panel").style.display="none";
 document.getElementById("giris").style.display="block";
 
 document.getElementById("sifre").value="";
+
+document.getElementById("mesaj").innerText="";
 
 }
 
