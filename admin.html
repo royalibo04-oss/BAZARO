@@ -3,63 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BAZARO Admin Paneli</title>
+
+<title>BAZARO Admin</title>
 
 <style>
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f4f6;
-  color:#222;
+  font-family:Arial;
+  background:#f2f2f2;
 }
+
 header{
   background:#111827;
   color:white;
   padding:20px;
   text-align:center;
 }
-.container{
-  max-width:900px;
-  margin:25px auto;
-  padding:15px;
-}
-.card{
+
+.box{
+  max-width:500px;
+  margin:30px auto;
   background:white;
-  padding:20px;
+  padding:25px;
   border-radius:12px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px #0001;
 }
-input,select{
+
+input{
   width:100%;
-  padding:12px;
-  margin:8px 0 15px;
-  border:1px solid #ddd;
+  padding:14px;
+  box-sizing:border-box;
+  margin:10px 0;
+  border:1px solid #ccc;
   border-radius:8px;
 }
+
 button{
-  padding:12px 18px;
+  width:100%;
+  padding:14px;
   border:0;
   border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-.login{
   background:#f59e0b;
+  font-weight:bold;
+  cursor:pointer;
 }
-.delete{
-  background:#dc2626;
-  color:white;
-}
-.hidden{
+
+#panel{
   display:none;
 }
-.ad{
-  border:1px solid #ddd;
+
+.elan{
+  background:#f3f4f6;
   padding:15px;
-  border-radius:10px;
   margin-top:10px;
+  border-radius:8px;
 }
 </style>
 </head>
@@ -67,27 +63,79 @@ button{
 <body>
 
 <header>
-<h1>BAZARO Admin Paneli</h1>
-<p>Saytın idarəetmə bölməsi</p>
+<h1>BAZARO</h1>
+<p>Admin Paneli</p>
 </header>
 
-<div class="container">
+<div class="box" id="giris">
 
-<div id="login" class="card">
 <h2>Admin girişi</h2>
 
-<label>Şifrə</label>
-<input type="password" id="password" placeholder="Admin şifrəsi">
+<input
+type="password"
+id="sifre"
+placeholder="Şifrəni yazın">
 
-<button class="login" onclick="login()">Daxil ol</button>
+<button onclick="daxilOl()">
+Daxil ol
+</button>
 
-<p id="error"></p>
+<p id="mesaj"></p>
+
 </div>
 
 
-<div id="panel" class="hidden">
+<div class="box" id="panel">
 
-<div class="card">
-<h2>📊 İdarəetmə</h2>
+<h2>✅ Admin panelinə xoş gəlmisiniz</h2>
 
-<p>Ümumi elan sayı: <b
+<p>Buradan BAZARO saytını idarə edə bilərsiniz.</p>
+
+<div class="elan">
+<h3>Elanların idarəsi</h3>
+<p>Hazırda elan yoxdur.</p>
+</div>
+
+<button onclick="cixis()">
+Çıxış
+</button>
+
+</div>
+
+
+<script>
+
+function daxilOl(){
+
+var sifre =
+document.getElementById("sifre").value;
+
+if(sifre === "12345"){
+
+document.getElementById("giris").style.display="none";
+
+document.getElementById("panel").style.display="block";
+
+}else{
+
+document.getElementById("mesaj").innerText=
+"❌ Şifrə yanlışdır.";
+
+}
+
+}
+
+function cixis(){
+
+document.getElementById("panel").style.display="none";
+
+document.getElementById("giris").style.display="block";
+
+document.getElementById("sifre").value="";
+
+}
+
+</script>
+
+</body>
+</html>
