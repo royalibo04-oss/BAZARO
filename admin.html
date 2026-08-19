@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BAZARO24 Admin</title>
 
 <style>
@@ -12,14 +11,12 @@ body{
   font-family:Arial,sans-serif;
   background:#f2f2f2;
 }
-
 header{
   background:#111827;
   color:white;
   padding:20px;
   text-align:center;
 }
-
 .box{
   max-width:500px;
   margin:30px auto;
@@ -28,7 +25,6 @@ header{
   border-radius:12px;
   box-sizing:border-box;
 }
-
 input{
   width:100%;
   padding:14px;
@@ -38,7 +34,6 @@ input{
   border-radius:8px;
   font-size:16px;
 }
-
 button{
   width:100%;
   padding:14px;
@@ -51,18 +46,15 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-
 #panel,#elanForm{
   display:none;
 }
-
 .elan{
   background:#f3f4f6;
   padding:15px;
   margin-top:15px;
   border-radius:8px;
 }
-
 .elan img{
   width:100%;
   max-height:250px;
@@ -70,17 +62,14 @@ button{
   border-radius:8px;
   margin-top:10px;
 }
-
 .sil{
   background:#dc2626;
   color:white;
 }
-
 .basari{
   color:green;
   font-weight:bold;
 }
-
 .xeta{
   color:red;
   font-weight:bold;
@@ -96,18 +85,13 @@ button{
 </header>
 
 <div class="box" id="giris">
-
 <h2>Admin girişi</h2>
 
-<input
-type="password"
-id="sifre"
-placeholder="Şifrəni yazın">
+<input type="password" id="sifre" placeholder="Şifrəni yazın">
 
 <button onclick="daxilOl()">Daxil ol</button>
 
 <p id="mesaj"></p>
-
 </div>
 
 <div class="box" id="panel">
@@ -133,17 +117,14 @@ placeholder="Şifrəni yazın">
 <button onclick="elanElaveEt()">Elanı yadda saxla</button>
 
 <p id="elanMesaj"></p>
-
 </div>
 
 <div class="elan">
-
 <h3>Elanların idarəsi</h3>
 
 <div id="elanlar">
 <p>Hazırda elan yoxdur.</p>
 </div>
-
 </div>
 
 <button onclick="cixis()">Çıxış</button>
@@ -154,9 +135,9 @@ placeholder="Şifrəni yazın">
 
 function daxilOl(){
 
-var sifre=document.getElementById("sifre").value;
+var sifre = document.getElementById("sifre").value;
 
-if(sifre===Bazaro2026
+if(sifre === "Bazaro2026!"){
 
 document.getElementById("giris").style.display="none";
 document.getElementById("panel").style.display="block";
@@ -186,7 +167,7 @@ var qiymet=document.getElementById("elanQiymet").value.trim();
 var seher=document.getElementById("elanSeher").value.trim();
 var sekil=document.getElementById("elanSekil").value.trim();
 
-if(ad===""||qiymet===""||seher===""){
+if(ad==="" || qiymet==="" || seher===""){
 
 document.getElementById("elanMesaj").innerText=
 "❌ Elanın adı, qiyməti və şəhəri yazılmalıdır.";
@@ -198,7 +179,7 @@ return;
 }
 
 var elanlar=
-JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
+JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
 
 elanlar.push({
 ad:ad,
@@ -229,7 +210,7 @@ elanlariGoster();
 function elanlariGoster(){
 
 var elanlar=
-JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
+JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
 
 var yer=document.getElementById("elanlar");
 
@@ -250,50 +231,14 @@ div.className="elan";
 
 var html="";
 
-html+="<h3>"+elan.ad+"</h3>";
+html += "<h3>"+elan.ad+"</h3>";
 
-html+="<p><b>Qiymət:</b> "+
+html += "<p><b>Qiymət:</b> "+
 elan.qiymet+" manat</p>";
 
-html+="<p><b>Şəhər:</b> "+
+html += "<p><b>Şəhər:</b> "+
 elan.seher+"</p>";
 
 if(elan.sekil!==""){
 
-html+="<img src='"+elan.sekil+"' alt='Elan şəkli'>";
-
-}
-
-html+="<button class='sil' onclick='elanSil("+
-index+")'>🗑 Elanı sil</button>";
-
-div.innerHTML=html;
-
-yer.appendChild(div);
-
-});
-
-}
-
-function elanSil(index){
-
-var elanlar=
-JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
-
-elanlar.splice(index,1);
-
-localStorage.setItem(
-"bazaroElanlar",
-JSON.stringify(elanlar)
-);
-
-elanlariGoster();
-
-}
-
-function cixis(){
-
-document.getElementById("panel").style.display="none";
-document.getElementById("giris").style.display="block";
-document.getElementById("sifre").value="";
-document.getElementById
+html += "<img
