@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BAZARO Admin</title>
+<title>BAZARO24 Admin</title>
 
 <style>
 body{
@@ -52,17 +52,8 @@ button{
   cursor:pointer;
 }
 
-button:hover{
-  opacity:0.9;
-}
-
-#panel{
+#panel,#elanForm{
   display:none;
-}
-
-#elanForm{
-  display:none;
-  margin-top:20px;
 }
 
 .elan{
@@ -94,22 +85,15 @@ button:hover{
   color:red;
   font-weight:bold;
 }
-
-#elanlar{
-  margin-top:20px;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>BAZARO</h1>
+<h1>BAZARO24</h1>
 <p>Admin Paneli</p>
 </header>
-
-
-<!-- GİRİŞ -->
 
 <div class="box" id="giris">
 
@@ -120,64 +104,37 @@ type="password"
 id="sifre"
 placeholder="Şifrəni yazın">
 
-<button onclick="daxilOl()">
-Daxil ol
-</button>
+<button onclick="daxilOl()">Daxil ol</button>
 
 <p id="mesaj"></p>
 
 </div>
 
-
-<!-- ADMİN PANELİ -->
-
 <div class="box" id="panel">
 
 <h2>✅ Admin panelinə xoş gəlmisiniz</h2>
 
-<p>Buradan BAZARO saytını idarə edə bilərsiniz.</p>
+<p>Buradan BAZARO24 saytını idarə edə bilərsiniz.</p>
 
-<button onclick="formuGoster()">
-➕ Elan əlavə et
-</button>
-
-
-<!-- ELAN ƏLAVƏ ET FORMU -->
+<button onclick="formuGoster()">➕ Elan əlavə et</button>
 
 <div id="elanForm">
 
 <h2>Yeni elan əlavə et</h2>
 
-<input
-type="text"
-id="elanAdi"
-placeholder="Elanın adı">
+<input type="text" id="elanAdi" placeholder="Elanın adı">
 
-<input
-type="number"
-id="elanQiymet"
-placeholder="Qiymət (manat)">
+<input type="number" id="elanQiymet" placeholder="Qiymət (manat)">
 
-<input
-type="text"
-id="elanSeher"
-placeholder="Şəhər">
+<input type="text" id="elanSeher" placeholder="Şəhər">
 
-<input
-type="text"
-id="elanSekil"
-placeholder="Şəklin linki">
+<input type="text" id="elanSekil" placeholder="Şəklin linki">
 
-<button onclick="elanElaveEt()">
-Elanı yadda saxla
-</button>
+<button onclick="elanElaveEt()">Elanı yadda saxla</button>
 
 <p id="elanMesaj"></p>
 
 </div>
-
-
-<!-- ELANLAR -->
 
 <div class="elan">
 
@@ -189,42 +146,32 @@ Elanı yadda saxla
 
 </div>
 
-
-<button onclick="cixis()">
-Çıxış
-</button>
+<button onclick="cixis()">Çıxış</button>
 
 </div>
-
 
 <script>
 
 function daxilOl(){
 
-var sifre = document.getElementById("sifre").value;
+var sifre=document.getElementById("sifre").value;
 
-if(sifre === "1
-Bz24!Admin#7Qx9){
+if(sifre==="Bz24!Admin#7Qx9"){
 
 document.getElementById("giris").style.display="none";
-
 document.getElementById("panel").style.display="block";
-
 document.getElementById("mesaj").innerText="";
 
 elanlariGoster();
 
 }else{
 
-document.getElementById("mesaj").innerText=
-"❌ Şifrə yanlışdır.";
-
+document.getElementById("mesaj").innerText="❌ Şifrə yanlışdır.";
 document.getElementById("mesaj").className="xeta";
 
 }
 
 }
-
 
 function formuGoster(){
 
@@ -232,23 +179,14 @@ document.getElementById("elanForm").style.display="block";
 
 }
 
-
 function elanElaveEt(){
 
-var ad =
-document.getElementById("elanAdi").value.trim();
+var ad=document.getElementById("elanAdi").value.trim();
+var qiymet=document.getElementById("elanQiymet").value.trim();
+var seher=document.getElementById("elanSeher").value.trim();
+var sekil=document.getElementById("elanSekil").value.trim();
 
-var qiymet =
-document.getElementById("elanQiymet").value.trim();
-
-var seher =
-document.getElementById("elanSeher").value.trim();
-
-var sekil =
-document.getElementById("elanSekil").value.trim();
-
-
-if(ad === "" || qiymet === "" || seher === ""){
+if(ad===""||qiymet===""||seher===""){
 
 document.getElementById("elanMesaj").innerText=
 "❌ Elanın adı, qiyməti və şəhəri yazılmalıdır.";
@@ -259,103 +197,75 @@ return;
 
 }
 
+var elanlar=
+JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
 
-var elanlar =
-JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
-
-
-var yeniElan = {
-
-ad: ad,
-
-qiymet: qiymet,
-
-seher: seher,
-
-sekil: sekil
-
-};
-
-
-elanlar.push(yeniElan);
-
+elanlar.push({
+ad:ad,
+qiymet:qiymet,
+seher:seher,
+sekil:sekil
+});
 
 localStorage.setItem(
 "bazaroElanlar",
 JSON.stringify(elanlar)
 );
 
-
 document.getElementById("elanMesaj").innerText=
 "✅ Elan uğurla əlavə edildi.";
 
 document.getElementById("elanMesaj").className="basari";
-
 
 document.getElementById("elanAdi").value="";
 document.getElementById("elanQiymet").value="";
 document.getElementById("elanSeher").value="";
 document.getElementById("elanSekil").value="";
 
-
 elanlariGoster();
 
 }
 
-
 function elanlariGoster(){
 
-var elanlar =
-JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
+var elanlar=
+JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
 
-var yer =
-document.getElementById("elanlar");
+var yer=document.getElementById("elanlar");
 
-
-if(elanlar.length === 0){
+if(elanlar.length===0){
 
 yer.innerHTML="<p>Hazırda elan yoxdur.</p>";
-
 return;
 
 }
 
-
 yer.innerHTML="";
-
 
 elanlar.forEach(function(elan,index){
 
-var div =
-document.createElement("div");
+var div=document.createElement("div");
 
 div.className="elan";
 
-
 var html="";
 
-html += "<h3>" + elan.ad + "</h3>";
+html+="<h3>"+elan.ad+"</h3>";
 
-html += "<p><b>Qiymət:</b> " +
-elan.qiymet + " manat</p>";
+html+="<p><b>Qiymət:</b> "+
+elan.qiymet+" manat</p>";
 
-html += "<p><b>Şəhər:</b> " +
-elan.seher + "</p>";
+html+="<p><b>Şəhər:</b> "+
+elan.seher+"</p>";
 
+if(elan.sekil!==""){
 
-if(elan.sekil !== ""){
-
-html += "<img src='" +
-elan.sekil +
-"' alt='Elan şəkli'>";
+html+="<img src='"+elan.sekil+"' alt='Elan şəkli'>";
 
 }
 
-
-html += "<button class='sil' onclick='elanSil(" +
-index +
-")'>🗑 Elanı sil</button>";
-
+html+="<button class='sil' onclick='elanSil("+
+index+")'>🗑 Elanı sil</button>";
 
 div.innerHTML=html;
 
@@ -365,40 +275,25 @@ yer.appendChild(div);
 
 }
 
-
 function elanSil(index){
 
-var elanlar =
-JSON.parse(localStorage.getItem("bazaroElanlar")) || [];
-
+var elanlar=
+JSON.parse(localStorage.getItem("bazaroElanlar"))||[];
 
 elanlar.splice(index,1);
-
 
 localStorage.setItem(
 "bazaroElanlar",
 JSON.stringify(elanlar)
 );
 
-
 elanlariGoster();
 
 }
 
-
 function cixis(){
 
 document.getElementById("panel").style.display="none";
-
 document.getElementById("giris").style.display="block";
-
 document.getElementById("sifre").value="";
-
-document.getElementById("mesaj").innerText="";
-
-}
-
-</script>
-
-</body>
-</html>
+document.getElementById
